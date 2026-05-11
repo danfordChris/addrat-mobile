@@ -1,0 +1,41 @@
+import 'package:dio/dio.dart';
+import 'package:pesa_lending/core/network/api_client.dart';
+
+class LoansApiService {
+  LoansApiService._();
+  static final LoansApiService instance = LoansApiService._();
+
+  Dio get _dio => ApiClient().dio;
+
+  Future<Map<String, dynamic>> getLoanProducts() =>
+      _get('/loans/products');
+
+  Future<Map<String, dynamic>> calculateLoan(Map<String, dynamic> body) =>
+      _post('/loans/calculate', body);
+
+  Future<Map<String, dynamic>> applyLoan(Map<String, dynamic> body) =>
+      _post('/loans/apply', body);
+
+  Future<Map<String, dynamic>> acceptLoan(String loanId, String pin) =>
+      _post('/loans/$loanId/accept', {'pin': pin});
+
+  Future<Map<String, dynamic>> getMyLoans({int page = 0, int size = 10}) =>
+      _get('/loans?page=$page&size=$size');
+
+  Future<Map<String, dynamic>> getLoan(String loanId) =>
+      _get('/loans/$loanId');
+
+  Future<Map<String, dynamic>> getActiveLoan() =>
+      _get('/loans/active');
+
+  // ── Helpers ───────────────────────────────────────────────
+  Future<Map<String, dynamic>> _get(String path) async {
+    final res = await _dio.get(path);
+    return res.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> _post(String path, dynamic data) async {
+    final res = await _dio.post(path, data: data);
+    return res.data as Map<String, dynamic>;
+  }
+}
