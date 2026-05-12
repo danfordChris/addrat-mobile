@@ -41,22 +41,27 @@ class AuthProvider extends BaseProvider {
   String? get error => _error;
 
   Future<void> checkAuth() async {
-    final loggedIn = await StorageService.isLoggedIn();
-    if (loggedIn) {
-      _isAuthenticated = true;
-      _userId = await StorageService.getUserId();
-      _phone = await StorageService.getPhone();
-      _fullName = await StorageService.getFullName();
-      _kycStatus = await StorageService.getKycStatus();
-      _creditLimit = await StorageService.getCreditLimit();
-      notifyListeners();
+    try {
+      final loggedIn = await StorageService.isLoggedIn();
+      if (loggedIn) {
+        _isAuthenticated = true;
+        _userId = await StorageService.getUserId();
+        _phone = await StorageService.getPhone();
+        _fullName = await StorageService.getFullName();
+        _kycStatus = await StorageService.getKycStatus();
+        _creditLimit = await StorageService.getCreditLimit();
+        notifyListeners();
+      }
+    } catch (e) {
+      SessionManager.handleError(e);
     }
   }
 
   Future<void> refreshFromServer() async {
-    final loggedIn = await StorageService.isLoggedIn();
-    if (!loggedIn) return;
     try {
+      final loggedIn = await StorageService.isLoggedIn();
+      if (!loggedIn) return;
+
       final res = await AuthApiService.profile;
       final user = res; // mapData is directly returned from AuthApiService.profile
       _kycStatus = user['kycStatus'] as String? ?? _kycStatus ?? KycStatus.notStarted.value;
@@ -74,7 +79,7 @@ class AuthProvider extends BaseProvider {
       _isAuthenticated = true;
       notifyListeners();
     } catch (e) {
-      // Silent
+      SessionManager.handleError(e);
     }
   }
 
@@ -86,8 +91,7 @@ class AuthProvider extends BaseProvider {
       await AuthApiService.register({'phoneNumber': normalizedPhone, 'fullName': fullName, 'password': password});
     } catch (e) {
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }
@@ -103,8 +107,7 @@ class AuthProvider extends BaseProvider {
       _isAuthenticated = true;
     } catch (e) {
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }
@@ -117,8 +120,7 @@ class AuthProvider extends BaseProvider {
       await AuthApiService.requestOtp(normalizeTzPhoneNumber(phone), purpose);
     } catch (e) {
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }
@@ -133,10 +135,9 @@ class AuthProvider extends BaseProvider {
       await _saveSession(res);
       _isAuthenticated = true;
     } catch (e, s) {
-      AppUtility.log('OTP verification failed ar $s');
+      AppUtility.log('OTP verification failed: $s');
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }
@@ -149,8 +150,7 @@ class AuthProvider extends BaseProvider {
       await AuthApiService.setPin(pin);
     } catch (e) {
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }
@@ -172,8 +172,7 @@ class AuthProvider extends BaseProvider {
       notifyListeners();
     } catch (e) {
       _error = e.toString();
-      SessionManager.showError(e);
-      rethrow;
+      SessionManager.handleError(e);
     } finally {
       _setLoading(false);
     }

@@ -1,4 +1,6 @@
+import 'package:pesa_lending/features/auth/service/auth_api_service.dart';
 import 'package:pesa_lending/models/user_model.dart';
+import 'package:pesa_lending/services/session_manager.dart';
 import 'package:pesa_lending/shared/providers/base_provider.dart';
 
 class UserProvider extends BaseProvider {
@@ -10,6 +12,26 @@ class UserProvider extends BaseProvider {
 
   String? _error;
   String? get error => _error;
+
+  Future<void> loadProfile() async {
+    _setLoading(true);
+    _error = null;
+    try {
+      final res = await AuthApiService.profile;
+      _user = UserModel.fromJson(res);
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      SessionManager.handleError(e);
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  void _setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   void setLoading() {
     _isLoading = true;

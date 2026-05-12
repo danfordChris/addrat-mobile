@@ -21,7 +21,6 @@ import 'package:pesa_lending/features/loans/screens/loan_apply_screen.dart';
 import 'package:pesa_lending/features/loans/screens/loan_products_screen.dart';
 import 'package:pesa_lending/features/onboarding/language_selection_screen.dart';
 import 'package:pesa_lending/features/repayment/screens/repayment_screen.dart';
-import 'package:pesa_lending/services/auth_service.dart';
 import 'package:pesa_lending/services/storage_service.dart';
 
 // ── Route Enum ────────────────────────────────────────────────
@@ -80,12 +79,14 @@ class AppRouter {
       final isPublic = _publicPaths.any((p) => path.startsWith(p));
       if (isPublic) return null;
 
-      final loggedIn = await AuthService.isAuthenticated();
+      final loggedIn = await StorageService.isLoggedIn();
       if (!loggedIn) return AppRoute.authPhone.path;
 
       if (path == AppRoute.loansApply.path) {
         final kycStatus = await StorageService.getKycStatus();
-        if (kycStatus != 'APPROVED') return AppRoute.kyc.path;
+        if (kycStatus != 'APPROVED') {
+          return AppRoute.kyc.path;
+        }
       }
 
       return null;

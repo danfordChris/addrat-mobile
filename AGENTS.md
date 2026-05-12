@@ -17,6 +17,13 @@
 - Newer screens use Riverpod (`flutter_riverpod`) with `authProvider` and `loanProvider` from `lib/core/providers/providers.dart`.
 - Riverpod is the active state layer in the app; legacy BLoC examples are archived under `legacy/` and should not be extended for new flows.
 - Provider state is map-based and API-shaped; keep request/response keys aligned with backend payloads.
+- **API handling follows: UI (Screen) → Provider (State) → Repository (API Service)**
+  - See `MOBILE_API_PATTERNS.md` for detailed examples
+  - Use `API_IMPLEMENTATION_CHECKLIST.md` when implementing new features
+  - Repositories return `Result<T>` (Success/Failure) wrapped responses
+  - Providers manage loading state and call `notifyListeners()` after updates
+  - UI watches provider state and disables buttons during loading
+  - Errors handled via `SessionManager.handleError()` (shows snackbar)
 
 ## UI conventions
 - Reuse `PesaButton`, `PesaTextField`, `AmountCard`, `StatusBadge`, `LoadingOverlay`, and `showError/showSuccess` from `lib/shared/widgets/shared_widgets.dart`.

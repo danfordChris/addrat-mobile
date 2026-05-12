@@ -33,6 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
     ]);
 
     if (!mounted) return;
+
+    if (auth.isAuthenticated) {
+      await auth.refreshFromServer();
+    }
+
+    if (!mounted) return;
     await Future.delayed(const Duration(seconds: 3));
     if (!mounted) return;
 

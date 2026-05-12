@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pesa_lending/core/utils/result.dart';
 import 'package:pesa_lending/features/kyc/enums/kyc_enums.dart';
 import 'package:pesa_lending/features/kyc/screens/employment_info_step.dart';
 import 'package:pesa_lending/features/kyc/screens/financial_details_step.dart';
@@ -8,6 +9,7 @@ import 'package:pesa_lending/models/kyc_models.dart';
 import 'package:pesa_lending/repositories/kyc_repository.dart';
 import 'package:pesa_lending/services/database_manager.dart';
 import 'package:pesa_lending/services/session_manager.dart';
+import 'package:pesa_lending/services/storage_service.dart';
 import 'package:pesa_lending/shared/enums/kyc_status_enum.dart';
 import 'package:pesa_lending/shared/providers/base_provider.dart';
 
@@ -34,17 +36,47 @@ class KycProvider extends BaseProvider {
 
   bool get isSubmitting => _isSubmitting ?? false;
 
+  bool _isReadOnly = false;
+
+  bool get isReadOnly => _isReadOnly;
+
+  Map<String, dynamic>? _approvedKycData;
+
+  Map<String, dynamic>? get approvedKycData => _approvedKycData;
+
   Widget get widget => _getCurrentStepWidget;
 
   Future<void> initiateKyc() async {
     _setLoading(true);
     try {
+      final kycStatus = await StorageService.getKycStatus();
+      if (kycStatus == KycStatus.approved.value) {
+        await _loadApprovedKyc();
+        setReadOnly();
+        return;
+      }
+
       final draft = DatabaseManager.instance.kycDraft.loadDraft();
       setInProgress(KycStepScreens.fromStep(draft?.step) ?? KycStepScreens.personalInfo);
     } catch (e) {
       SessionManager.handleError(e);
     } finally {
       _setLoading(false);
+    }
+  }
+
+  Future<void> _loadApprovedKyc() async {
+    try {
+      final result = await KycRepository.instance.getProfile();
+      if (result is Success) {
+        _approvedKycData = (result as Success).value;
+        setComplete();
+      } else if (result is Failure) {
+        final failure = result as Failure;
+        SessionManager.handleError(failure.cause ?? Exception(failure.message));
+      }
+    } catch (e) {
+      SessionManager.handleError(e);
     }
   }
 
@@ -137,6 +169,11 @@ class KycProvider extends BaseProvider {
 
   void setRejected() {
     _step = KycStep.rejected;
+    notifyListeners();
+  }
+
+  void setReadOnly() {
+    _isReadOnly = true;
     notifyListeners();
   }
 
