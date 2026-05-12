@@ -56,8 +56,8 @@ class _RepayState extends State<RepaymentScreen> {
   String get _selectedChannelLabel => _channel.label;
 
   Future<void> _submit() async {
-    if (_pin.length < 4) {
-      AppSnackbar.error( 'Weka PIN sahihi');
+    if (_pin.length < 6) {
+      AppSnackbar.error( 'Weka PIN kamili ya tarakimu 6');
       return;
     }
     if (_phoneCtrl.text.isEmpty) {

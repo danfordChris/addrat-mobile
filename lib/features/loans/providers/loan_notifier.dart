@@ -155,7 +155,7 @@ class LoanNotifier extends BaseProvider {
     _setLoading(true);
     try {
       final res = await _loansApi.getMyLoans();
-      myLoans = (res['data'] as List? ?? []).cast<Map<String, dynamic>>();
+      myLoans = res;
       error = null;
     } catch (e) {
       error = userMessage(e);

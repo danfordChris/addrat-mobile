@@ -1,33 +1,71 @@
 class LoanModel {
-  final String id;
-  final String status;
+  final int id;
+  final int? userId;
   final double principalAmount;
-  final double outstandingAmount;
-  final double interestRate;
-  final int termMonths;
-  final DateTime? nextDueDate;
+  final double? applicationFee;
+  final double? monthlyInterest;
+  final double? totalAmountDue;
+  final int? durationMonths;
+  final int? termDays;
+  final String status;
+  final double? outstandingPrincipal;
+  final double? totalRepaid;
+  final int? daysPastDue;
+  final DateTime? dueDate;
+  final DateTime? createdAt;
+  final DateTime? approvedAt;
   final DateTime? disbursedAt;
 
   const LoanModel({
     required this.id,
-    required this.status,
+    this.userId,
     required this.principalAmount,
-    required this.outstandingAmount,
-    required this.interestRate,
-    required this.termMonths,
-    this.nextDueDate,
+    this.applicationFee,
+    this.monthlyInterest,
+    this.totalAmountDue,
+    this.durationMonths,
+    this.termDays,
+    required this.status,
+    this.outstandingPrincipal,
+    this.totalRepaid,
+    this.daysPastDue,
+    this.dueDate,
+    this.createdAt,
+    this.approvedAt,
     this.disbursedAt,
   });
 
   factory LoanModel.fromJson(Map<String, dynamic> json) => LoanModel(
-        id: json['id'] as String,
-        status: json['status'] as String,
+        id: json['id'] as int,
+        userId: json['userId'] as int?,
         principalAmount: (json['principalAmount'] as num).toDouble(),
-        outstandingAmount: (json['outstandingAmount'] as num).toDouble(),
-        interestRate: (json['interestRate'] as num).toDouble(),
-        termMonths: json['termMonths'] as int,
-        nextDueDate: json['nextDueDate'] != null
-            ? DateTime.tryParse(json['nextDueDate'] as String)
+        applicationFee: json['applicationFee'] != null
+            ? (json['applicationFee'] as num).toDouble()
+            : null,
+        monthlyInterest: json['monthlyInterest'] != null
+            ? (json['monthlyInterest'] as num).toDouble()
+            : null,
+        totalAmountDue: json['totalAmountDue'] != null
+            ? (json['totalAmountDue'] as num).toDouble()
+            : null,
+        durationMonths: json['durationMonths'] as int?,
+        termDays: json['termDays'] as int?,
+        status: json['status'] as String,
+        outstandingPrincipal: json['outstandingPrincipal'] != null
+            ? (json['outstandingPrincipal'] as num).toDouble()
+            : null,
+        totalRepaid: json['totalRepaid'] != null
+            ? (json['totalRepaid'] as num).toDouble()
+            : null,
+        daysPastDue: json['daysPastDue'] as int?,
+        dueDate: json['dueDate'] != null
+            ? DateTime.tryParse(json['dueDate'] as String)
+            : null,
+        createdAt: json['createdAt'] != null
+            ? DateTime.tryParse(json['createdAt'] as String)
+            : null,
+        approvedAt: json['approvedAt'] != null
+            ? DateTime.tryParse(json['approvedAt'] as String)
             : null,
         disbursedAt: json['disbursedAt'] != null
             ? DateTime.tryParse(json['disbursedAt'] as String)

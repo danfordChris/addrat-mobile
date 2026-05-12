@@ -67,7 +67,9 @@ class LoanApiService {
       params: {'page': page.toString(), 'size': size.toString()},
     );
     apiResponse.raiseOnError();
-    return List<Map<String, dynamic>>.from(apiResponse.responseBody['data']);
+    final data = apiResponse.responseBody['data'];
+    final content = data is Map ? data['content'] as List : data as List;
+    return List<Map<String, dynamic>>.from(content);
   }
 
   static Future<Map<String, dynamic>> getLoan(String loanId) async {
