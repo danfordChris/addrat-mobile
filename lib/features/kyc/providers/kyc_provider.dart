@@ -40,7 +40,7 @@ class KycProvider extends BaseProvider {
     _setLoading(true);
     try {
       final draft = DatabaseManager.instance.kycDraft.loadDraft();
-      setInProgress(KycStepScreens.fromStep(draft?.step) ?? KycStepScreens.financialInfo);
+      setInProgress(KycStepScreens.fromStep(draft?.step) ?? KycStepScreens.personalInfo);
     } catch (e) {
       SessionManager.handleError(e);
     } finally {

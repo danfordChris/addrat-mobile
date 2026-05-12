@@ -8,7 +8,7 @@ class APIManager extends BaseAPIManager {
 
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://127.0.0.1:8080/api/v1',
+    defaultValue: 'https://61c6-102-205-251-154.ngrok-free.app/api/v1',
   );
 
   static StarterAPIManagement get _manager {

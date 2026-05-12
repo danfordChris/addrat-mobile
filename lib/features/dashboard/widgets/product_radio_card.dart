@@ -42,6 +42,11 @@ class ProductRadioCard extends StatelessWidget {
     final titleColor = isSelected ? Colors.white : cs.onSurface;
     final labelColor = isSelected ? Colors.white.withValues(alpha: 0.65) : cs.onSurfaceVariant;
     final valueColor = isSelected ? Colors.white : cs.onSurface;
+    final category = (product['category'] as String?)?.toUpperCase() ?? '';
+    final riskBand = (product['riskBand'] as String?) ?? '';
+    final eligible = (product['eligible'] as bool?) ?? true;
+    final recommendation = (product['creditRecommendation'] as String?) ?? '';
+    final recommendedAmount = (product['recommendedAmount'] as num?)?.toDouble();
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 280),
@@ -77,6 +82,27 @@ class ProductRadioCard extends StatelessWidget {
                           'Kiasi: Tsh ${_fmt(minA)} - Tsh ${_fmt(maxA)}',
                           style: context.titleSmall.copyWith(color: titleColor),
                         ),
+                        if (category.isNotEmpty || riskBand.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            '${category.isNotEmpty ? category : ''}${category.isNotEmpty && riskBand.isNotEmpty ? ' • ' : ''}${riskBand.isNotEmpty ? 'Risk: $riskBand' : ''}',
+                            style: context.bodySmall.copyWith(color: labelColor),
+                          ),
+                        ],
+                        if (!eligible && product['reasonIfNotEligible'] != null) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            product['reasonIfNotEligible'].toString(),
+                            style: context.bodySmall.copyWith(color: Colors.redAccent),
+                          ),
+                        ],
+                        if (recommendedAmount != null && eligible) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            'Pendekezo: Tsh ${_fmt(recommendedAmount)}${recommendation.isNotEmpty ? ' • $recommendation' : ''}',
+                            style: context.bodySmall.copyWith(color: labelColor),
+                          ),
+                        ],
                         const SizedBox(height: 10),
                         Row(
                           children: [

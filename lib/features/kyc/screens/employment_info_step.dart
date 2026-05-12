@@ -239,8 +239,16 @@ class _DependantsCounter extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Number of Dependants', style: context.bodyMedium.copyWith(color: context.colorScheme.onSurface)),
+          Expanded(
+            child: Text(
+              'Number of Dependants',
+              style: context.bodyMedium.copyWith(color: context.colorScheme.onSurface),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(width: AppSpacing.sm),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               AppIconButton(
                 icon: HugeIcons.strokeRoundedMinusSign,

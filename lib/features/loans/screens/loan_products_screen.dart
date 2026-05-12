@@ -29,6 +29,12 @@ class _LoanProductsState extends State<LoanProductsScreen> {
   }
 
   void _selectProduct(Map<String, dynamic> product) {
+    final eligible = (product['eligible'] as bool?) ?? true;
+    if (!eligible) {
+      final reason = product['reasonIfNotEligible']?.toString() ?? 'Hustahiki mkopo huu kwa sasa.';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(reason)));
+      return;
+    }
     final min = (product['minAmount'] as num).toDouble();
     setState(() {
       _selected = product;
@@ -112,6 +118,16 @@ class _LoanProductsState extends State<LoanProductsScreen> {
                   ),
                 ).animate(delay: 100.ms).fadeIn(),
               ),
+              if (loanProvider.products.any((p) => (p['eligible'] as bool?) == false))
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    child: Text(
+                      'Baadhi ya bidhaa zimefungwa kulingana na KYC/credit profile yako.',
+                      style: context.bodySmall.copyWith(color: cs.error),
+                    ),
+                  ),
+                ),
 
               // Product radio cards — selected card expands inline
               SliverPadding(

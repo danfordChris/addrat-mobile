@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                                 width: 44,
                                 height: 44,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: context.colorScheme.surface,
                                   borderRadius: BorderRadius.circular(AppRadius.md),
                                 ),
                                 child: Center(
@@ -73,26 +73,26 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 12),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'ADDRAT',
-                                      style: context.bodyLarge.extraBold.copyWith(
-                                        color: cs.surface,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '\nMicrofinance',
-                                      style: context.bodyLarge.extraBold
-                                          .copyWith(
-                                            color: cs.error,
-                                          )
-                                          .semiBold,
-                                    ),
-                                  ],
-                                ),
-                              )
+                              // RichText(
+                              //   text: TextSpan(
+                              //     children: [
+                              //       TextSpan(
+                              //         text: 'ADDRAT',
+                              //         style: context.bodyLarge.extraBold.copyWith(
+                              //           color: cs.surface,
+                              //         ),
+                              //       ),
+                              //       TextSpan(
+                              //         text: '\nMicrofinance',
+                              //         style: context.bodyLarge.extraBold
+                              //             .copyWith(
+                              //               color: cs.error,
+                              //             )
+                              //             .semiBold,
+                              //       ),
+                              //     ],
+                              //   ),
+                              // )
                             ]),
                           ),
                           const Spacer(),

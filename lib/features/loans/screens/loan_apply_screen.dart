@@ -85,10 +85,14 @@ class _ApplyState extends State<LoanApplyScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: cs.surface,
-        title: Text('Omba Mkopo', style: context.titleLarge.copyWith(color: cs.onSurface)),
+        title: Text('Omba Mkopo',
+            style: context.titleLarge.copyWith(color: cs.onSurface)),
         leading: IconButton(
           onPressed: () => context.pop(),
-          icon: HugeIcon(icon: HugeIcons.strokeRoundedArrowLeft01, color: cs.onSurface, size: 22),
+          icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedArrowLeft01,
+              color: cs.onSurface,
+              size: 22),
         ),
       ),
       body: Stack(
@@ -119,14 +123,21 @@ class _ApplyState extends State<LoanApplyScreen> {
                       padding: const EdgeInsets.all(22),
                       child: Column(
                         children: [
-                          Text(productName, style: context.bodySmall.medium.copyWith(color: Colors.white.withValues(alpha: 0.65))),
+                          Text(productName,
+                              style: context.bodySmall.medium.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.65))),
                           const SizedBox(height: 8),
-                          Text(disbursed.tzs, style: context.displaySmall.extraBold.copyWith(color: Colors.white, letterSpacing: -0.5)),
+                          Text(disbursed.tzs,
+                              style: context.displaySmall.extraBold.copyWith(
+                                  color: Colors.white, letterSpacing: -0.5)),
                           const SizedBox(height: 4),
-                          Text('utakachopata kwenye simu', style: context.bodySmall.copyWith(color: Colors.white.withValues(alpha: 0.6))),
+                          Text('utakachopata kwenye simu',
+                              style: context.bodySmall.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.6))),
                           const SizedBox(height: 20),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(AppRadius.md),
@@ -134,11 +145,20 @@ class _ApplyState extends State<LoanApplyScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                _SummaryChip(icon: HugeIcons.strokeRoundedMoneySend01, label: 'Kulipa', value: total.tzs),
+                                _SummaryChip(
+                                    icon: HugeIcons.strokeRoundedMoneySend01,
+                                    label: 'Kulipa',
+                                    value: total.tzs),
                                 _VLine(),
-                                _SummaryChip(icon: HugeIcons.strokeRoundedTime01, label: 'Muda', value: '$termDays siku'),
+                                _SummaryChip(
+                                    icon: HugeIcons.strokeRoundedTime01,
+                                    label: 'Muda',
+                                    value: '$termDays siku'),
                                 _VLine(),
-                                _SummaryChip(icon: HugeIcons.strokeRoundedPercentCircle, label: 'APR', value: '$apr%'),
+                                _SummaryChip(
+                                    icon: HugeIcons.strokeRoundedPercentCircle,
+                                    label: 'APR',
+                                    value: '$apr%'),
                               ],
                             ),
                           ),
@@ -149,7 +169,11 @@ class _ApplyState extends State<LoanApplyScreen> {
 
                   const SizedBox(height: 24),
 
-                  Text('Taarifa za Ombi', style: context.titleSmall.copyWith(color: cs.onSurface)).animate(delay: 100.ms).fadeIn(),
+                  Text('Taarifa za Ombi',
+                          style:
+                              context.titleSmall.copyWith(color: cs.onSurface))
+                      .animate(delay: 100.ms)
+                      .fadeIn(),
                   const SizedBox(height: 12),
 
                   AppTextField(
@@ -157,8 +181,12 @@ class _ApplyState extends State<LoanApplyScreen> {
                     hint: 'Mfano: Biashara, Elimu, Afya...',
                     controller: _purposeCtrl,
                     maxLines: 2,
-                    prefixIcon: HugeIcon(icon: HugeIcons.strokeRoundedEdit01, color: cs.onSurfaceVariant, size: 20),
-                    validator: (v) => v == null || v.isEmpty ? 'Taja sababu ya mkopo' : null,
+                    prefixIcon: HugeIcon(
+                        icon: HugeIcons.strokeRoundedEdit01,
+                        color: cs.onSurfaceVariant,
+                        size: 20),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Taja sababu ya mkopo' : null,
                   ).animate(delay: 150.ms).fadeIn(),
 
                   const SizedBox(height: 20),
@@ -169,15 +197,21 @@ class _ApplyState extends State<LoanApplyScreen> {
                     decoration: BoxDecoration(
                       color: cs.primary.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(AppRadius.md),
-                      border: Border.all(color: cs.primary.withValues(alpha: 0.2)),
+                      border:
+                          Border.all(color: cs.primary.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(children: [
-                          HugeIcon(icon: HugeIcons.strokeRoundedInformationCircle, color: cs.primary, size: 16),
+                          HugeIcon(
+                              icon: HugeIcons.strokeRoundedInformationCircle,
+                              color: cs.primary,
+                              size: 16),
                           const SizedBox(width: 8),
-                          Text('Masharti ya Mkopo', style: context.labelMedium.copyWith(color: cs.primary)),
+                          Text('Masharti ya Mkopo',
+                              style: context.labelMedium
+                                  .copyWith(color: cs.primary)),
                         ]),
                         const SizedBox(height: 10),
                         ...[
@@ -192,11 +226,16 @@ class _ApplyState extends State<LoanApplyScreen> {
                                   Container(
                                     width: 5,
                                     height: 5,
-                                    margin: const EdgeInsets.only(top: 6, right: 8),
-                                    decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+                                    margin:
+                                        const EdgeInsets.only(top: 6, right: 8),
+                                    decoration: BoxDecoration(
+                                        color: cs.primary,
+                                        shape: BoxShape.circle),
                                   ),
                                   Expanded(
-                                    child: Text(t, style: context.bodySmall.copyWith(color: cs.onSurfaceVariant)),
+                                    child: Text(t,
+                                        style: context.bodySmall.copyWith(
+                                            color: cs.onSurfaceVariant)),
                                   ),
                                 ],
                               ),
@@ -236,24 +275,32 @@ class _SummaryChip extends StatelessWidget {
   final IconData icon;
   final String label, value;
 
-  const _SummaryChip({required this.icon, required this.label, required this.value});
+  const _SummaryChip(
+      {required this.icon, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HugeIcon(icon: icon, color: Colors.white.withValues(alpha: 0.65), size: 16),
+          HugeIcon(
+              icon: icon,
+              color: Colors.white.withValues(alpha: 0.65),
+              size: 16),
           const SizedBox(height: 4),
-          Text(label, style: context.labelSmall.medium.copyWith(color: Colors.white.withValues(alpha: 0.6))),
+          Text(label,
+              style: context.labelSmall.medium
+                  .copyWith(color: Colors.white.withValues(alpha: 0.6))),
           const SizedBox(height: 2),
-          Text(value, style: context.bodySmall.bold.copyWith(color: Colors.white)),
+          Text(value,
+              style: context.bodySmall.bold.copyWith(color: Colors.white)),
         ],
       );
 }
 
 class _VLine extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Container(width: 1, height: 38, color: Colors.white.withValues(alpha: 0.2));
+  Widget build(BuildContext context) => Container(
+      width: 1, height: 38, color: Colors.white.withValues(alpha: 0.2));
 }
 
 // ── Approval Bottom Sheet ─────────────────────────────────────
@@ -271,7 +318,8 @@ class _ApprovalSheet extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 36),
       decoration: BoxDecoration(
         color: cs.surfaceContainerHighest,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+        borderRadius:
+            const BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -291,13 +339,20 @@ class _ApprovalSheet extends StatelessWidget {
               color: cs.secondary.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: HugeIcon(icon: HugeIcons.strokeRoundedCheckmarkCircle01, color: cs.secondary, size: 40),
+            child: HugeIcon(
+                icon: HugeIcons.strokeRoundedCheckmarkCircle01,
+                color: cs.secondary,
+                size: 40),
           ).animate().scale(duration: 400.ms, curve: Curves.elasticOut),
           const SizedBox(height: 16),
-          Text('Mkopo Umeidhinishwa!', style: context.titleLarge.copyWith(color: cs.onSurface), textAlign: TextAlign.center),
+          Text('Mkopo Umeidhinishwa!',
+              style: context.titleLarge.copyWith(color: cs.onSurface),
+              textAlign: TextAlign.center),
           const SizedBox(height: 6),
-          Text('Mkopo wako wa ${(loan['principalAmount'] as num).tzs} umeidhinishwa!',
-              style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant), textAlign: TextAlign.center),
+          Text(
+              'Mkopo wako wa ${(loan['principalAmount'] as num).tzs} umeidhinishwa!',
+              style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant),
+              textAlign: TextAlign.center),
           const SizedBox(height: 24),
           AppPrimaryButton(
             label: 'Pokea na Kubali Mkopo',
@@ -321,18 +376,21 @@ class LoanDetailScreen extends StatefulWidget {
   State<LoanDetailScreen> createState() => _DetailState();
 }
 
-class _DetailState extends State<LoanDetailScreen> with SingleTickerProviderStateMixin {
+class _DetailState extends State<LoanDetailScreen>
+    with SingleTickerProviderStateMixin {
   late final TabController _tabs;
 
   @override
   void initState() {
     super.initState();
     _tabs = TabController(length: 2, vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) => context.stateRead<LoanProvider>().loadLoan(widget.loanId));
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        context.stateRead<LoanProvider>().startLoanTracking(widget.loanId));
   }
 
   @override
   void dispose() {
+    context.stateRead<LoanProvider>().stopLoanTracking();
     _tabs.dispose();
     super.dispose();
   }
@@ -354,9 +412,13 @@ class _DetailState extends State<LoanDetailScreen> with SingleTickerProviderStat
     if (loan == null) {
       return Scaffold(
         backgroundColor: cs.surface,
-        appBar: AppBar(backgroundColor: cs.surface, title: Text('Maelezo ya Mkopo', style: context.titleLarge.copyWith(color: cs.onSurface))),
+        appBar: AppBar(
+            backgroundColor: cs.surface,
+            title: Text('Maelezo ya Mkopo',
+                style: context.titleLarge.copyWith(color: cs.onSurface))),
         body: Center(
-          child: Text('Mkopo haukupatikana', style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
+          child: Text('Mkopo haukupatikana',
+              style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
         ),
       );
     }
@@ -364,6 +426,8 @@ class _DetailState extends State<LoanDetailScreen> with SingleTickerProviderStat
     final loanStatus = LoanStatus.fromString(loan['status'] as String?);
     final isActive = loanStatus.isLive;
     final isApproved = loanStatus == LoanStatus.approved;
+    final isDisbursementPending = loanStatus == LoanStatus.disbursementPending;
+    final isDisbursementFailed = loanStatus == LoanStatus.disbursementFailed;
     final outstanding = (loan['outstandingPrincipal'] as num?)?.toDouble() ?? 0;
     final totalRepaid = (loan['totalRepaid'] as num?)?.toDouble() ?? 0;
     final principal = (loan['principalAmount'] as num).toDouble();
@@ -411,7 +475,12 @@ class _DetailState extends State<LoanDetailScreen> with SingleTickerProviderStat
                     children: [
                       _DetailGrid(loan: loan),
                       const SizedBox(height: 16),
-                      if (isApproved) _AcceptWidget(loanId: loan['id'].toString()),
+                      if (isApproved)
+                        _AcceptWidget(loanId: loan['id'].toString()),
+                      if (isDisbursementPending)
+                        const _DisbursementPendingNotice(),
+                      if (isDisbursementFailed)
+                        const _DisbursementFailedNotice(),
                       if (isActive)
                         _PayNowButton(
                           loanId: loan['id'].toString(),
@@ -458,7 +527,11 @@ class _LoanDetailHeader extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [const Color(0xFF0D2456), const Color(0xFF1141A8), cs.primary],
+          colors: [
+            const Color(0xFF0D2456),
+            const Color(0xFF1141A8),
+            cs.primary
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -473,21 +546,30 @@ class _LoanDetailHeader extends StatelessWidget {
               Row(children: [
                 IconButton(
                   onPressed: () => context.pop(),
-                  icon: HugeIcon(icon: HugeIcons.strokeRoundedArrowLeft01, color: Colors.white, size: 22),
+                  icon: HugeIcon(
+                      icon: HugeIcons.strokeRoundedArrowLeft01,
+                      color: Colors.white,
+                      size: 22),
                   padding: EdgeInsets.zero,
                 ),
                 const SizedBox(width: 4),
                 Expanded(
-                  child: Text('Maelezo ya Mkopo', style: context.titleMedium.bold.copyWith(color: Colors.white)),
+                  child: Text('Maelezo ya Mkopo',
+                      style: context.titleMedium.bold
+                          .copyWith(color: Colors.white)),
                 ),
                 _StatusPill(status: loanStatus.value),
               ]),
               const SizedBox(height: 16),
 
               // Amount
-              Text(loan['productName'] ?? '', style: context.bodySmall.copyWith(color: Colors.white.withValues(alpha: 0.65))),
+              Text(loan['productName'] ?? '',
+                  style: context.bodySmall
+                      .copyWith(color: Colors.white.withValues(alpha: 0.65))),
               const SizedBox(height: 4),
-              Text((loan['principalAmount'] as num).tzs, style: context.displaySmall.extraBold.copyWith(color: Colors.white, letterSpacing: -0.5)),
+              Text((loan['principalAmount'] as num).tzs,
+                  style: context.displaySmall.extraBold
+                      .copyWith(color: Colors.white, letterSpacing: -0.5)),
 
               const SizedBox(height: 16),
 
@@ -500,7 +582,10 @@ class _LoanDetailHeader extends StatelessWidget {
                     value: outstanding.tzs,
                     color: isOverdue ? cs.error : Colors.white,
                   )),
-                  Container(width: 1, height: 32, color: Colors.white.withValues(alpha: 0.2)),
+                  Container(
+                      width: 1,
+                      height: 32,
+                      color: Colors.white.withValues(alpha: 0.2)),
                   Expanded(
                       child: _HeroStat(
                     label: 'Imelipwa',
@@ -508,7 +593,10 @@ class _LoanDetailHeader extends StatelessWidget {
                     color: cs.secondary,
                   )),
                   if (isActive) ...[
-                    Container(width: 1, height: 32, color: Colors.white.withValues(alpha: 0.2)),
+                    Container(
+                        width: 1,
+                        height: 32,
+                        color: Colors.white.withValues(alpha: 0.2)),
                     Expanded(
                         child: _HeroStat(
                       label: 'DPD',
@@ -535,8 +623,12 @@ class _LoanDetailHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('${(progress * 100).toStringAsFixed(0)}% imelipwa',
-                        style: context.labelSmall.copyWith(color: Colors.white.withValues(alpha: 0.65))),
-                    if (isOverdue) Text('⚠ Imechelewa', style: context.labelSmall.semiBold.copyWith(color: cs.error)),
+                        style: context.labelSmall.copyWith(
+                            color: Colors.white.withValues(alpha: 0.65))),
+                    if (isOverdue)
+                      Text('⚠ Imechelewa',
+                          style: context.labelSmall.semiBold
+                              .copyWith(color: cs.error)),
                   ],
                 ),
               ],
@@ -552,12 +644,15 @@ class _HeroStat extends StatelessWidget {
   final String label, value;
   final Color color;
 
-  const _HeroStat({required this.label, required this.value, required this.color});
+  const _HeroStat(
+      {required this.label, required this.value, required this.color});
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          Text(label, style: context.labelSmall.copyWith(color: Colors.white.withValues(alpha: 0.6))),
+          Text(label,
+              style: context.labelSmall
+                  .copyWith(color: Colors.white.withValues(alpha: 0.6))),
           const SizedBox(height: 3),
           Text(value, style: context.bodySmall.bold.copyWith(color: color)),
         ],
@@ -576,7 +671,10 @@ class _StatusPill extends StatelessWidget {
       LoanStatus.active => ('Inaendelea', cs.secondary),
       LoanStatus.overdue => ('Imechelewa', cs.error),
       LoanStatus.approved => ('Imeidhinishwa', cs.primary),
+      LoanStatus.disbursementPending => ('Inatuma fedha', cs.tertiary),
+      LoanStatus.disbursementFailed => ('Utumaji umeshindikana', cs.error),
       LoanStatus.rejected => ('Ilikataliwa', cs.error),
+      LoanStatus.completed => ('Imekamilika', cs.secondary),
       LoanStatus.closed => ('Imefungwa', cs.onSurfaceVariant),
       LoanStatus.pending => ('Inasubiri', cs.tertiary),
     };
@@ -602,16 +700,33 @@ class _DetailGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rows = <_DetailRow>[
-      _DetailRow(icon: HugeIcons.strokeRoundedInvoice01, label: 'Nambari ya Mkopo', value: loan['loanNumber'] ?? '—'),
+      _DetailRow(
+          icon: HugeIcons.strokeRoundedInvoice01,
+          label: 'Nambari ya Mkopo',
+          value: loan['loanNumber'] ?? '—'),
       _DetailRow(
           icon: HugeIcons.strokeRoundedPercentCircle,
           label: 'Riba kwa Mwezi',
-          value: '${((loan['monthlyRate'] as num? ?? 0) * 100).toStringAsFixed(1)}%'),
-      _DetailRow(icon: HugeIcons.strokeRoundedTime01, label: 'Muda', value: '${loan['termDays'] ?? 0} siku'),
-      _DetailRow(icon: HugeIcons.strokeRoundedCalendar03, label: 'Tarehe ya Mwisho', value: loan['dueDate']?.toString() ?? 'N/A'),
-      _DetailRow(icon: HugeIcons.strokeRoundedEdit01, label: 'Sababu', value: loan['purpose'] ?? 'N/A'),
+          value:
+              '${((loan['monthlyRate'] as num? ?? 0) * 100).toStringAsFixed(1)}%'),
+      _DetailRow(
+          icon: HugeIcons.strokeRoundedTime01,
+          label: 'Muda',
+          value: '${loan['termDays'] ?? 0} siku'),
+      _DetailRow(
+          icon: HugeIcons.strokeRoundedCalendar03,
+          label: 'Tarehe ya Mwisho',
+          value: loan['dueDate']?.toString() ?? 'N/A'),
+      _DetailRow(
+          icon: HugeIcons.strokeRoundedEdit01,
+          label: 'Sababu',
+          value: loan['purpose'] ?? 'N/A'),
       if (loan['rejectionReason'] != null)
-        _DetailRow(icon: HugeIcons.strokeRoundedAlert02, label: 'Sababu ya Kukataliwa', value: loan['rejectionReason'], isError: true),
+        _DetailRow(
+            icon: HugeIcons.strokeRoundedAlert02,
+            label: 'Sababu ya Kukataliwa',
+            value: loan['rejectionReason'],
+            isError: true),
     ];
 
     final cs = context.colorScheme;
@@ -625,7 +740,8 @@ class _DetailGrid extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: rows.length,
-        separatorBuilder: (_, __) => Divider(color: cs.outlineVariant, height: 1),
+        separatorBuilder: (_, __) =>
+            Divider(color: cs.outlineVariant, height: 1),
         itemBuilder: (_, i) => _DetailRowWidget(row: rows[i]),
       ),
     );
@@ -666,10 +782,14 @@ class _DetailRowWidget extends StatelessWidget {
             child: HugeIcon(icon: row.icon, color: cs.primary, size: 15),
           ),
           const SizedBox(width: 12),
-          Text(row.label, style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
+          Text(row.label,
+              style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
           const Spacer(),
           Flexible(
-            child: Text(row.value, style: context.labelMedium.copyWith(color: row.isError ? cs.error : cs.onSurface), textAlign: TextAlign.right),
+            child: Text(row.value,
+                style: context.labelMedium
+                    .copyWith(color: row.isError ? cs.error : cs.onSurface),
+                textAlign: TextAlign.right),
           ),
         ],
       ),
@@ -693,9 +813,13 @@ class _ScheduleTab extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            HugeIcon(icon: HugeIcons.strokeRoundedCalendar03, color: cs.onSurfaceVariant, size: 40),
+            HugeIcon(
+                icon: HugeIcons.strokeRoundedCalendar03,
+                color: cs.onSurfaceVariant,
+                size: 40),
             const SizedBox(height: 12),
-            Text('Ratiba haipatikani bado', style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
+            Text('Ratiba haipatikani bado',
+                style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
           ],
         ),
       );
@@ -707,7 +831,8 @@ class _ScheduleTab extends StatelessWidget {
       separatorBuilder: (_, __) => const SizedBox(height: 8),
       itemBuilder: (_, i) {
         final s = schedule[i] as Map<String, dynamic>;
-        final scheduleStatus = ScheduleStatus.fromString(s['status'] as String?);
+        final scheduleStatus =
+            ScheduleStatus.fromString(s['status'] as String?);
         final isPaid = scheduleStatus == ScheduleStatus.paid;
         final isOverdue = scheduleStatus == ScheduleStatus.overdue;
         final color = isPaid
@@ -733,9 +858,14 @@ class _ScheduleTab extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: isPaid
-                    ? HugeIcon(icon: HugeIcons.strokeRoundedCheckmarkCircle01, color: color, size: 18)
+                    ? HugeIcon(
+                        icon: HugeIcons.strokeRoundedCheckmarkCircle01,
+                        color: color,
+                        size: 18)
                     : Center(
-                        child: Text('${s['installmentNo']}', style: context.bodySmall.bold.copyWith(color: color)),
+                        child: Text('${s['installmentNo']}',
+                            style:
+                                context.bodySmall.bold.copyWith(color: color)),
                       ),
               ),
               const SizedBox(width: 12),
@@ -743,14 +873,19 @@ class _ScheduleTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(s['dueDate']?.toString() ?? '', style: context.bodySmall.copyWith(color: cs.onSurfaceVariant)),
+                    Text(s['dueDate']?.toString() ?? '',
+                        style: context.bodySmall
+                            .copyWith(color: cs.onSurfaceVariant)),
                     const SizedBox(height: 2),
-                    Text((s['totalDue'] as num).tzs, style: context.titleSmall.copyWith(color: cs.onSurface)),
+                    Text((s['totalDue'] as num).tzs,
+                        style:
+                            context.titleSmall.copyWith(color: cs.onSurface)),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -783,23 +918,33 @@ class _PayNowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = context.colorScheme;
     return GestureDetector(
-      onTap: () => context.push(AppRoute.repayment.replaceParam('loanId', loanId), extra: {'outstanding': outstanding.toStringAsFixed(2)}),
+      onTap: () => context.push(
+          AppRoute.repayment.replaceParam('loanId', loanId),
+          extra: {'outstanding': outstanding.toStringAsFixed(2)}),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [cs.secondary, const Color(0xFF0DB870)]),
+          gradient:
+              LinearGradient(colors: [cs.secondary, const Color(0xFF0DB870)]),
           borderRadius: BorderRadius.circular(AppRadius.pill),
           boxShadow: [
-            BoxShadow(color: cs.secondary.withValues(alpha: 0.3), blurRadius: 16, offset: const Offset(0, 6)),
+            BoxShadow(
+                color: cs.secondary.withValues(alpha: 0.3),
+                blurRadius: 16,
+                offset: const Offset(0, 6)),
           ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            HugeIcon(icon: HugeIcons.strokeRoundedMoneyReceive01, color: Colors.white, size: 20),
+            HugeIcon(
+                icon: HugeIcons.strokeRoundedMoneyReceive01,
+                color: Colors.white,
+                size: 20),
             const SizedBox(width: 10),
-            Text('Lipa Mkopo Sasa', style: context.labelLarge.copyWith(color: Colors.white)),
+            Text('Lipa Mkopo Sasa',
+                style: context.labelLarge.copyWith(color: Colors.white)),
           ],
         ),
       ),
@@ -829,7 +974,7 @@ class _AcceptState extends State<_AcceptWidget> {
     try {
       await context.stateRead<LoanProvider>().acceptLoan(widget.loanId, _pin);
       if (mounted) {
-        AppSnackbar.success('Mkopo umekubaliwa! Fedha zitumwe M-Pesa.');
+        AppSnackbar.success('Mkopo umekubaliwa. Utumaji wa fedha unaendelea.');
         context.go(AppRoute.home.path);
       }
     } catch (e) {
@@ -852,12 +997,17 @@ class _AcceptState extends State<_AcceptWidget> {
       child: Column(
         children: [
           Row(children: [
-            HugeIcon(icon: HugeIcons.strokeRoundedCheckmarkCircle01, color: cs.secondary, size: 22),
+            HugeIcon(
+                icon: HugeIcons.strokeRoundedCheckmarkCircle01,
+                color: cs.secondary,
+                size: 22),
             const SizedBox(width: 10),
-            Text('Kubali Mkopo', style: context.titleSmall.copyWith(color: cs.onSurface)),
+            Text('Kubali Mkopo',
+                style: context.titleSmall.copyWith(color: cs.onSurface)),
           ]),
           const SizedBox(height: 8),
-          Text('Weka PIN yako ya miamala kukubali na kupokea fedha kwenye simu yako.',
+          Text(
+              'Weka PIN yako ya miamala kukubali na kupokea fedha kwenye simu yako.',
               style: context.bodyMedium.copyWith(color: cs.onSurfaceVariant)),
           const SizedBox(height: 16),
           PinCodeTextField(
@@ -887,6 +1037,68 @@ class _AcceptState extends State<_AcceptWidget> {
             leadingIcon: HugeIcons.strokeRoundedDownload04,
             onPressed: _pin.length == 6 ? _accept : null,
             isLoading: loading,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DisbursementPendingNotice extends StatelessWidget {
+  const _DisbursementPendingNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = context.colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: cs.tertiary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(AppRadius.md),
+        border: Border.all(color: cs.tertiary.withValues(alpha: 0.35)),
+      ),
+      child: Row(
+        children: [
+          HugeIcon(
+              icon: HugeIcons.strokeRoundedTime01,
+              color: cs.tertiary,
+              size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              'Utumaji wa fedha unaendelea. Tafadhali subiri uthibitisho kwenye akaunti yako.',
+              style: context.bodySmall.copyWith(color: cs.onSurface),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DisbursementFailedNotice extends StatelessWidget {
+  const _DisbursementFailedNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = context.colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: cs.error.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(AppRadius.md),
+        border: Border.all(color: cs.error.withValues(alpha: 0.35)),
+      ),
+      child: Row(
+        children: [
+          HugeIcon(
+              icon: HugeIcons.strokeRoundedAlert02, color: cs.error, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              'Utumaji wa fedha umeshindikana. Wasiliana na msaada au subiri mrejesho wa mkopo wako.',
+              style: context.bodySmall.copyWith(color: cs.onSurface),
+            ),
           ),
         ],
       ),

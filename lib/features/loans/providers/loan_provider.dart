@@ -1,8 +1,12 @@
 import 'package:pesa_lending/features/loans/service/loan_api_service.dart';
 import 'package:pesa_lending/services/session_manager.dart';
 import 'package:pesa_lending/shared/providers/base_provider.dart';
+import 'dart:async';
 
 class LoanProvider extends BaseProvider {
+  static const Duration _pollInterval = Duration(seconds: 20);
+  static const Duration _streamReconnectDelay = Duration(seconds: 5);
+
   bool? _isLoading;
   bool get isLoading => _isLoading ?? false;
 
@@ -23,6 +27,11 @@ class LoanProvider extends BaseProvider {
 
   String? _error;
   String? get error => _error;
+
+  StreamSubscription<Map<String, dynamic>>? _loanEventSub;
+  Timer? _pollTimer;
+  Timer? _reconnectTimer;
+  String? _trackedLoanId;
 
   Future<void> loadProducts() async {
     _setLoading(true);
@@ -108,6 +117,24 @@ class LoanProvider extends BaseProvider {
     }
   }
 
+  Future<void> startLoanTracking(String loanId) async {
+    stopLoanTracking();
+    _trackedLoanId = loanId;
+    await loadLoan(loanId);
+    _startPolling(loanId);
+    _connectEventStream(loanId);
+  }
+
+  void stopLoanTracking() {
+    _trackedLoanId = null;
+    _loanEventSub?.cancel();
+    _loanEventSub = null;
+    _pollTimer?.cancel();
+    _pollTimer = null;
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+  }
+
   Future<Map<String, dynamic>?> loadActiveLoan() async {
     try {
       return await LoanApiService.activeLoan;
@@ -129,5 +156,52 @@ class LoanProvider extends BaseProvider {
   void _setSubmitting(bool value) {
     _isSubmitting = value;
     notifyListeners();
+  }
+
+  void _startPolling(String loanId) {
+    _pollTimer?.cancel();
+    _pollTimer = Timer.periodic(_pollInterval, (_) async {
+      if (_trackedLoanId != loanId) return;
+      await _loadLoanSilently(loanId);
+    });
+  }
+
+  void _connectEventStream(String loanId) {
+    _loanEventSub?.cancel();
+    _loanEventSub = LoanApiService.streamLoanEvents(loanId).listen(
+      (event) async {
+        if (_trackedLoanId != loanId) return;
+        final data = event['data'];
+        final eventType = (event['event'] ?? '').toString();
+        if (eventType == 'HEARTBEAT' ||
+            (data is Map && data['type'] == 'HEARTBEAT')) {
+          return;
+        }
+        await _loadLoanSilently(loanId);
+      },
+      onError: (_) => _scheduleReconnect(loanId),
+      onDone: () => _scheduleReconnect(loanId),
+      cancelOnError: true,
+    );
+  }
+
+  void _scheduleReconnect(String loanId) {
+    if (_trackedLoanId != loanId) return;
+    _reconnectTimer?.cancel();
+    _reconnectTimer = Timer(_streamReconnectDelay, () {
+      if (_trackedLoanId == loanId) {
+        _connectEventStream(loanId);
+      }
+    });
+  }
+
+  Future<void> _loadLoanSilently(String loanId) async {
+    try {
+      _currentLoan = await LoanApiService.getLoan(loanId);
+      _error = null;
+      notifyListeners();
+    } catch (_) {
+      // Keep silent retries to avoid noisy toasts during transient outages.
+    }
   }
 }
